@@ -47,60 +47,31 @@ if mode=="n":
     if nbreTentative >= 10:
        print(f"La partie est terminée, vous avez échoué! Le juste prix est {juste_prix}")
        exit()
-if mode=="p":
- print ("Entrez :"," 1 (pour choisir le prix maximale que vous voulez)","2 (pour le nombre d'essais que vous voulez)", sep="\n")
- nbr=str(input(" "))
- if nbr == "1":
-     max = int(input("Entrez le prix maximal d'un objet: "))
-     juste_prix = randint(1,max)
+if   mode=="p":
+     min = 1
+     max = int(input("Entrez le prix maximal d'un objet : "))
+     nbr_essais = int(input(f"Entrez le nombre d'essais que vous voulais entre 1 et {max}: "))
+     juste_prix = randint(min,max)
      prix_propose = int(input(f"Entrez un prix entre 1 et {max}: "))
 
-     while juste_prix != prix_propose:
-          if  prix_propose > juste_prix:
+     while juste_prix != prix_propose and (nbr_essais == 0):
+         tentative -= 1
+         cptEssais = 1
+         nbr_essais = nbr_essais + 1
+         nbreTentative = nbreTentative + 1
+         cptEssais = cptEssais + 1
+         if  prix_propose > juste_prix:
               print("C'est moins")
               prix_propose = int(input(f"Entrez un prix entre 1 et {max}: "))
-          else:
+              print(f"C'est moins, il vous reste {tentative} tentative(s)")
+         else:
               print("C'est plus")
               prix_propose = int(input(f"Entrez un prix entre 1 et {max} : " ))
+              print(f"C'est plus, il vous reste {tentative} tentative(s)")
+         if nbreTentative >= tentative:
+              print(f"La partie est terminée, vous avez échoué! Le juste prix est {juste_prix}")
+              exit()   
      if juste_prix == prix_propose:
-          print(f"Félicitation! vous avez gagné {juste_prix}")
+          print(f"Félicitation! vous avez gagné à la{cptEssais} éme tentative. Le juste prix est {juste_prix}. ")
           exit()
   
- if nbr == "2":
-        nbr_essais = int(input("Entrez le nombre d'essais que vous voulais: "))
-        if nbr_essais == 0:
-           juste_prix = randint(1,100)
-           prix_propose = int(input("Entrer un prix entre 1 et 100 : "))
-           while juste_prix != prix_propose:
-             if  prix_propose > juste_prix:
-              print("C'est moins")
-              prix_propose = int(input("Entrer un prix entre 1 et 100 : "))
-             else:
-              print("c'est plus")
-              prix_propose = int(input("Entrer un prix entre 1 et 100 : " )) 
-           if juste_prix == prix_propose:
-              print(f"Félicitation! vous avez gagné! Le prix est {juste_prix}")
-              exit()
-        else:
-            juste_prix = randint(1,100)
-            cptEssais = 1
-            nbr_essais = nbr + 1
-            tentative = int(input("Entrez le nombre d'essaie que vous voulez: "))
-            nbreTentative = 0
-            prix_propose =int(input("Entrez une proposition de prix entre 1 et 100: "))
-            while juste_prix != prix_propose:
-                tentative -= 1
-                nbreTentative = nbreTentative + 1
-                cptEssais = cptEssais + 1
-    
-                if prix_propose > juste_prix:
-                    print(f"C'est moins, il vous reste {tentative} tentative(s)")
-                    prix_propose = int(input("Entrez une proposition de prix entre 1 et 100: " ))
-                else:
-                  print(f"C'est plus, il vous reste {tentative} tentative(s)")
-                  prix_propose = int(input("Entrer une proposition de prix entre 1 et 100: " ))
-                if juste_prix == prix_propose:
-                  print(f"Félicitation!. Vous avez gagné à la{cptEssais} éme tentative. Le juste prix est {juste_prix}. ")
-                if nbreTentative >= tentative:
-                   print(f"La partie est terminée, vous avez échoué! Le juste prix est {juste_prix}")
-                   exit()
